@@ -2,47 +2,96 @@ package com.egoebelbecker.resttutorial.service;
 
 import com.egoebelbecker.resttutorial.model.Employee;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 // This is incredibly optimistic code
 public class EmployeeService {
 
 
-  private Map<Integer, Employee> employeeMap = new HashMap<>();
+    private Map<Integer, Employee> employeeMap = new HashMap<>();
 
 
-  // Create
-  public void addEmployee(Employee employee) {
-    employeeMap.put(employee.getEmployeeId(), employee);
-  }
+    // Create
+    public boolean addEmployee(Employee employee) {
+        if (employeeMap.containsKey(employee.getEmployeeId())) {
+            return false;
+        } else {
+            employeeMap.put(employee.getEmployeeId(), employee);
+            return true;
+        }
+    }
 
+    // Read One
+    public Optional<Employee> getEmployee(int id) {
+        return Optional.of(employeeMap.get(id));
+    }
 
+    // Read all
+    public Collection<Employee> loadAllEmployees() {
+        return employeeMap.values();
+    }
 
-  // Read One
+    // Update
+    public boolean updateEmployee(int id, Employee employee) {
+        if (employeeMap.containsKey(id)) {
+            employeeMap.remove(id);
+            employeeMap.put(employee.getEmployeeId(), employee);
+            return true;
+        } else {
+            return false;
+        }
 
-  public Optional<Employee> getEmployee(int id) {
-    return Optional.of(employeeMap.get(id));
-  }
+    }
 
+    // Update
+    public boolean patchEmployee(int id, Employee employee) {
 
+        if (employeeMap.containsKey(id)) {
 
-  // Read all
-  public Collection<Employee> loadAllEmployees() {
-    return employeeMap.values();
-  }
+            Employee origEmployee = employeeMap.remove(id);
 
+            if (employee.getEmployeeId() != 0) {
+                origEmployee.setEmployeeId(employee.getEmployeeId());
+            }
 
-  // Update
+            if ((employee.getEmail() != null) && (!employee.getEmail().isEmpty())) {
+                origEmployee.setEmail(employee.getEmail());
+            }
 
+            if ((employee.getFirstName() != null) && (!employee.getFirstName().isEmpty())) {
+                origEmployee.setFirstName(employee.getFirstName());
+            }
 
+            if ((employee.getLastName() != null) && (!employee.getLastName().isEmpty())) {
+                origEmployee.setLastName(employee.getLastName());
+            }
 
+            if ((employee.getPhone() != null) && (!employee.getPhone().isEmpty())) {
+                origEmployee.setPhone(employee.getPhone());
+            }
 
-  // Delete
-  public void deleteEmployee(int id) {
-    employeeMap.remove(id);
-  }
+            employeeMap.put(employee.getEmployeeId(), origEmployee);
+            return true;
+        } else {
+            return false;
+        }
 
+    }
 
+    // Delete
+    public boolean deleteEmployee(int id) {
+
+        if (employeeMap.containsKey(id)) {
+            employeeMap.remove(id);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 
 }

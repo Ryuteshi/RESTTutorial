@@ -1,4 +1,4 @@
-group 'com.thomsonreuters.atr'
+group 'com.egoebelbecker.resttutorial'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -10,35 +10,31 @@ buildscript {
     }
 }
 
+
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
-    mavenLocal()
-    maven {
-        url 'http://bams-amers-sami-api.int.thomsonreuters.com/artifactory/public.maven.global'
-    }
     mavenCentral()
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
-    compile group: 'org.springframework.boot', name:'spring-boot-starter-jdbc'
     compileOnly "org.projectlombok:lombok:1.16.16"
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
-    compile group: 'com.thomsonreuters.atr', name: 'fdm', version: "2.0.1-SNAPSHOT"
-    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
-}
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+
 }
 jar {
     exclude "*.properties"
@@ -53,7 +49,7 @@ task copyDeps( type: Copy) {
     from('build/libs') {
         include "*.original"
     }
-    into rootProject.rootDir.getAbsolutePath() + "/docker/app/RESTReferenceDataService/libs"
+    into rootProject.rootDir.getAbsolutePath() + "/docker/app/RESTTutorial/libs"
     rename{
         String fileName -> fileName.replace('.original', '')
     }

@@ -12,9 +12,9 @@ else
     export release=$1
 fi
 
-echo "Build and Push restreferencedataservice:"${release}" to Docker repo"
+echo "Build and Push resttutorial:"${release}" to Docker repo"
 
-docker build -t restreferencedataservice:${release} .
-docker tag restreferencedataservice:${release} docker.int.thomsonreuters.com:5001/atr/restreferencedataservice:${release}
-docker push docker.int.thomsonreuters.com:5001/atr/restreferencedataservice:${release}
+docker build -t resttutorial:${release} .
+docker tag resttutorial:${release} ericgoebelbecker/resttutorial:${release}
+docker push ericgoebelbecker/resttutorial:${release}
 

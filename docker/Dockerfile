@@ -4,5 +4,5 @@ ENV JAVA_VERSION 8u31
 WORKDIR /app/RESTReferenceDataService/
 ENV PACKAGE_ROOT /app
 ADD app /app/
-ENTRYPOINT ["/app/RESTReferenceDataService/bin/start.sh"]
+ENTRYPOINT ["/app/RESTTutorial/bin/start.sh"]
 CMD []
