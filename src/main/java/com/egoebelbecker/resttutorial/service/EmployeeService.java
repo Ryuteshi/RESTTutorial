@@ -73,7 +73,7 @@ public class EmployeeService {
                 origEmployee.setPhone(employee.getPhone());
             }
 
-            employeeMap.put(employee.getEmployeeId(), origEmployee);
+            employeeMap.put(origEmployee.getEmployeeId(), origEmployee);
             return true;
         } else {
             return false;

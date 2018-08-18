@@ -54,9 +54,9 @@ public class TutorialController {
     public ResponseEntity createEmployee(@RequestBody Employee employee) {
         log.info("Receive Request to add employee {}", employee);
         if (employeeService.addEmployee(employee)) {
-            return new ResponseEntity(null, HttpStatus.OK);
+            return new ResponseEntity(null, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(null, HttpStatus.FORBIDDEN);
         }
     }
 
@@ -97,10 +97,10 @@ public class TutorialController {
             if (employeeService.updateEmployee(id, employee)) {
                 return new ResponseEntity(null, HttpStatus.OK);
             } else {
-                return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity(null, HttpStatus.NO_CONTENT);
             }
         } catch (NumberFormatException | NoSuchElementException nfe) {
-            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity(null, HttpStatus.NO_CONTENT);
         }
     }
 
@@ -115,10 +115,10 @@ public class TutorialController {
             if (employeeService.patchEmployee(id, employee)) {
                 return new ResponseEntity(null, HttpStatus.OK);
             } else {
-                return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity(null, HttpStatus.NO_CONTENT);
             }
         } catch (NumberFormatException | NoSuchElementException nfe) {
-            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity(null, HttpStatus.NO_CONTENT);
         }
 
     }
@@ -135,7 +135,7 @@ public class TutorialController {
         } catch (NumberFormatException | NoSuchElementException nfe) {
             // Fall through to not found
         }
-        return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(null, HttpStatus.NO_CONTENT);
 
     }
 
